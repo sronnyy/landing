@@ -10,7 +10,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`antialiased relative bg-gradient-to-br from-[#ffe9da] via-[#fff5ed] to-[#fef0e8]`}>
+      <body className={`antialiased relative bg-gradient-to-br from-[#ffece0] via-[#fff5ed] to-[#fef0e8]`}>
         {/* Overlay com textura e gradiente sutil */}
         <div className="fixed inset-0 pointer-events-none">
           {/* Camada de noise com opacidade muito sutil */}
