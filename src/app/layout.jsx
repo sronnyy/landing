@@ -31,9 +31,9 @@ export default function RootLayout({ children }) {
           <div className="absolute bottom-[-15%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#fff5ed]/10 blur-[80px]" />
         </div>
 
-        <Scroll>
+        {/* <Scroll> */}
           {children}
-        </Scroll>
+        {/* </Scroll> */}
       </body>
     </html>
   );
