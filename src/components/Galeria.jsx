@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Autoplay, EffectCreative } from 'swiper/modules'
-import { FiChevronDown, FiMessageSquare, FiUser, FiMail, FiStar, FiCheckCircle } from 'react-icons/fi'
+import { FiChevronDown, FiMessageSquare, FiUser, FiMail, FiStar, FiCheckCircle, FiArrowRight } from 'react-icons/fi'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -55,16 +55,14 @@ const Galeria = () => {
   const RatingButton = ({ value }) => (
     <motion.button
       type="button"
-      onClick={() => {
-        setFormData({ ...formData, rating: value })
-        setActiveStep(1)
-      }}
+      onClick={() => setFormData({ ...formData, rating: value })}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      className={`p-3 rounded-xl transition-all flex flex-col items-center ${formData.rating >= value
+      className={`p-3 rounded-xl transition-all flex flex-col items-center ${
+        formData.rating === value
           ? 'bg-amber-600/20 text-amber-400'
           : 'bg-stone-800/50 hover:bg-stone-700/50'
-        }`}
+      }`}
     >
       <FiStar className="w-5 h-5" />
       <span className="text-xs mt-1">{value}</span>
@@ -76,7 +74,7 @@ const Galeria = () => {
       {/* Gallery Slider Section */}
       <div className='w-full relative mb-10 overflow-hidden bg-amber-900 z-20 rounded-4xl'>
         <div className='absolute bg-gradient-to-br from-stone-900/80 via-stone-900 to-stone-950 w-full h-full'></div>
-
+        
         <div className="relative h-1/2 w-full border-t border-stone-800 p-6">
           <Swiper
             ref={swiperRef2}
@@ -144,7 +142,7 @@ const Galeria = () => {
       {/* Minimalist Accordion SAC Form */}
       <div className="w-full relative rounded-3xl overflow-hidden">
         <div className="bg-stone-900/90 absolute inset-0 rounded-3xl" />
-
+        
         <div className="relative z-20">
           <motion.div
             className={`overflow-hidden ${isFormOpen ? 'bg-stone-800/10' : ''}`}
@@ -195,16 +193,18 @@ const Galeria = () => {
                         {steps.map((step) => (
                           <div key={step.id} className="flex flex-col items-center">
                             <div
-                              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${activeStep >= step.id
+                              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                                activeStep >= step.id
                                   ? 'bg-amber-600 text-white'
                                   : 'bg-stone-700 text-stone-400'
-                                }`}
+                              }`}
                             >
                               {step.icon}
                             </div>
                             <span
-                              className={`text-xs mt-2 ${activeStep >= step.id ? 'text-amber-400' : 'text-stone-500'
-                                }`}
+                              className={`text-xs mt-2 ${
+                                activeStep >= step.id ? 'text-amber-400' : 'text-stone-500'
+                              }`}
                             >
                               {step.title}
                             </span>
@@ -218,13 +218,27 @@ const Galeria = () => {
                           <motion.div
                             initial={{ x: -10, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
-                            className="space-y-4"
+                            className="space-y-6"
                           >
                             <h4 className="text-stone-300 text-center mb-4">Como foi sua experiência?</h4>
                             <div className="grid grid-cols-5 gap-2">
                               {[1, 2, 3, 4, 5].map((value) => (
                                 <RatingButton key={value} value={value} />
                               ))}
+                            </div>
+                            <div className="flex justify-end pt-2">
+                              <button
+                                type="button"
+                                onClick={() => setActiveStep(1)}
+                                disabled={formData.rating === 0}
+                                className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
+                                  formData.rating === 0
+                                    ? 'bg-stone-700/50 text-stone-500 cursor-not-allowed'
+                                    : 'bg-amber-600/90 hover:bg-amber-600 text-white'
+                                }`}
+                              >
+                                Próximo <FiArrowRight className="w-4 h-4" />
+                              </button>
                             </div>
                           </motion.div>
                         )}
@@ -269,9 +283,9 @@ const Galeria = () => {
                               <button
                                 type="button"
                                 onClick={() => setActiveStep(2)}
-                                className="px-4 py-2 bg-amber-600/90 hover:bg-amber-600 text-white rounded-lg text-sm"
+                                className="px-4 py-2 bg-amber-600/90 hover:bg-amber-600 text-white rounded-lg text-sm flex items-center gap-1"
                               >
-                                Próximo
+                                Próximo <FiArrowRight className="w-4 h-4" />
                               </button>
                             </div>
                           </motion.div>
